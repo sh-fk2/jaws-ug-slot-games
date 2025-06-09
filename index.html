@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAWS-UG Slot Games</title>
+    <link rel="icon" type="image/png" href="JAWS-UG.png">
+    <link rel="shortcut icon" type="image/png" href="JAWS-UG.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #232F3E 0%, #4A90A4 50%, #FF9900 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 48px;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .slot-machine {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #232F3E, #232F3E);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .slot-row {
+            width: 900px;
+            height: 100px;
+            border: none;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .slot-row:first-child {
+            border-radius: 15px 15px 0 0;
+            overflow: hidden;
+        }
+
+        .slot-row:last-child {
+            border-radius: 0 0 15px 15px;
+            overflow: hidden;
+        }
+
+        .reel-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Apply border-radius to reel-container in first and last rows */
+        .slot-row:first-child .reel-container {
+            border-radius: 15px 15px 0 0;
+            overflow: hidden;
+        }
+
+        .slot-row:last-child .reel-container {
+            border-radius: 0 0 15px 15px;
+            overflow: hidden;
+        }
+
+        .reel-strip {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Apply border-radius to reel-strip in first and last rows */
+        .slot-row:first-child .reel-strip {
+            border-radius: 15px 15px 0 0;
+            overflow: hidden;
+        }
+
+        .slot-row:last-child .reel-strip {
+            border-radius: 0 0 15px 15px;
+            overflow: hidden;
+        }
+
+        .reel-strip.spinning {
+            transition: none;
+        }
+
+        .slot-symbol {
+            width: 300px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            flex-shrink: 0;
+            padding: 0;
+            margin: 0;
+        }
+
+        .slot-image {
+            width: 300px;
+            height: 100px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Apply border-radius to images in first and last rows */
+        .slot-row:first-child .slot-image {
+            border-radius: 15px 15px 0 0;
+        }
+
+        /* Specific targeting for top row */
+        #row-0 {
+            border-radius: 20px 20px 0 0 !important;
+            overflow: hidden !important;
+        }
+
+        #row-0 .reel-container {
+            border-radius: 20px 20px 0 0 !important;
+            overflow: hidden !important;
+        }
+
+        #row-0 .reel-strip {
+            border-radius: 20px 20px 0 0 !important;
+            overflow: hidden !important;
+        }
+
+        #row-0 .slot-symbol {
+            border-radius: 20px 20px 0 0 !important;
+            overflow: hidden !important;
+        }
+
+        #row-0 .slot-image {
+            border-radius: 20px 20px 0 0 !important;
+        }
+
+        /* Specific targeting for bottom row */
+        #row-2 {
+            border-radius: 0 0 20px 20px !important;
+            overflow: hidden !important;
+        }
+
+        #row-2 .reel-container {
+            border-radius: 0 0 20px 20px !important;
+            overflow: hidden !important;
+        }
+
+        #row-2 .reel-strip {
+            border-radius: 0 0 20px 20px !important;
+            overflow: hidden !important;
+        }
+
+        #row-2 .slot-symbol {
+            border-radius: 0 0 20px 20px !important;
+            overflow: hidden !important;
+        }
+
+        #row-2 .slot-image {
+            border-radius: 0 0 20px 20px !important;
+        }
+
+        .center-highlight {
+            position: absolute;
+            top: 17px;
+            left: calc(50% + 0px);
+            width: 300px;
+            height: 299px;
+            border: 4px solid #ff9900;
+            pointer-events: none;
+            z-index: 10;
+            transform: translateX(-50%);
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 1200px) {
+            .center-highlight {
+                left: calc(50% + 5px);
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .center-highlight {
+                left: calc(50% + 10px);
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .center-highlight {
+                left: calc(50% + 15px);
+                width: 150px;
+                height: 150px;
+                border-width: 2px;
+            }
+        }
+
+        .controls {
+            margin: 20px 0;
+        }
+
+        button {
+            background: #ff9900;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        button:hover {
+            background: #e68a00;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        #message {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #232F3E;
+        }
+
+        .win-message {
+            color: #28a745;
+            animation: pulse 1s infinite;
+        }
+
+        .lose-message {
+            color: #dc3545;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .instructions {
+            font-size: 14px;
+            color: #232F3E;
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .debug-info {
+            display: none;
+        }
+
+        /* Confetti Animation Styles */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff9900;
+            animation: confetti-fall linear infinite;
+        }
+
+        .confetti:nth-child(odd) {
+            background: #232F3E;
+            border-radius: 50%;
+        }
+
+        .confetti:nth-child(3n) {
+            background: #4A90A4;
+            width: 8px;
+            height: 8px;
+        }
+
+        .confetti:nth-child(4n) {
+            background: #28a745;
+            border-radius: 50%;
+            width: 6px;
+            height: 6px;
+        }
+
+        .confetti:nth-child(5n) {
+            background: #dc3545;
+            width: 12px;
+            height: 4px;
+        }
+
+        .confetti:nth-child(6n) {
+            background: #ffc107;
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .confetti {
+                width: 8px;
+                height: 8px;
+            }
+            
+            .confetti:nth-child(3n) {
+                width: 6px;
+                height: 6px;
+            }
+            
+            .confetti:nth-child(4n) {
+                width: 5px;
+                height: 5px;
+            }
+            
+            .confetti:nth-child(5n) {
+                width: 10px;
+                height: 3px;
+            }
+            
+            .confetti:nth-child(6n) {
+                width: 6px;
+                height: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="JAWS-UG.png" alt="JAWS-UG Logo" class="logo">
+        <h1>JAWS-UG Slot Games</h1>
+    </div>
+
+    <div class="game-container">
+        <div class="slot-machine">
+            <div class="slot-row" id="row-0">
+                <div class="reel-container">
+                    <div class="reel-strip" id="reel-0"></div>
+                </div>
+            </div>
+            <div class="slot-row" id="row-1">
+                <div class="reel-container">
+                    <div class="reel-strip" id="reel-1"></div>
+                </div>
+            </div>
+            <div class="slot-row" id="row-2">
+                <div class="reel-container">
+                    <div class="reel-strip" id="reel-2"></div>
+                </div>
+            </div>
+            <div class="center-highlight"></div>
+        </div>
+
+        <div class="controls">
+            <button id="spin-btn" onclick="startSpin()">Start Spin</button>
+            <button id="stop-btn" onclick="stopReel()" disabled>Stop Reel</button>
+            <button onclick="restartGame()">New Game</button>
+        </div>
+
+        <div id="message">Press Start Spin to begin the game!</div>
+
+        <div class="instructions">
+            <p>🎰 Match 3 logos in the center line to win!</p>
+            <p>⌨️ Keyboard: Space = Start/Stop, R = New Game</p>
+        </div>
+    </div>
+
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confetti-container"></div>
+
+    <script src="slot-game.js"></script>
+</body>
+</html>

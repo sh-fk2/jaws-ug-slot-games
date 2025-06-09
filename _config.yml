@@ -1,0 +1,18 @@
+# GitHub Pages Configuration
+title: JAWS-UG Slot Games
+description: JAWS-UG（AWS User Group - Japan）のロゴを使用したスロットゲーム
+url: "https://yourusername.github.io"
+baseurl: "/jaws-ug-slot-games"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - test.html
+
+# Include files
+include:
+  - _config.yml
