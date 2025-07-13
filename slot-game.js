@@ -1,3 +1,4 @@
+// JAWS-UG Slot Game - Updated: July 13, 2025
 class SlotGame {
     constructor() {
         this.numRows = 3;

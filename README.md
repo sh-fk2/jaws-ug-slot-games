@@ -1,4 +1,5 @@
 # JAWS-UG Slot Games (Web Version)
+<!-- Last Updated: July 13, 2025 -->
 
 A web-based slot game featuring JAWS-UG (AWS User Group - Japan) logos. This is a converted version of the original Pygame-based game, optimized for GitHub Pages deployment.
 
