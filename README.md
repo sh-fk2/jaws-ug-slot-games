@@ -7,6 +7,7 @@ A web-based slot game featuring JAWS-UG (AWS User Group - Japan) logos. This is 
 
 - **JAWS-UG Logo Slots**: Slot machine using various JAWS-UG logos
 - **Classic Movement**: 3 reels rotating right to left
+- **Speed Control**: Interactive slider to adjust reel rotation speed (Very Slow to Very Fast)
 - **Confetti Celebration**: Spectacular confetti animation when you win
 - **Initial State**: Starts with all matching symbols across all three columns
 - **Random Selection**: 5 logo sets randomly selected each game
@@ -49,12 +50,19 @@ Your game will be available at: `https://yourusername.github.io/jaws-ug-slot-gam
 - **Start Spin**: Click the Start Spin button
 - **Stop Reel**: Click the Stop Reel button (stops reels one by one)
 - **New Logo Sets**: Click the New Logo Sets button
+- **Speed Control**: Drag the speed slider to adjust reel rotation speed
 
 ### Keyboard Controls
 - **Space**: Start spin / Stop reel / Spin again
 - **R Key**: Restart game with new logo sets
 
 ## 🎊 Special Features
+
+### Speed Control
+- **Interactive Slider**: 5-level speed adjustment (Very Slow to Very Fast)
+- **Real-time Changes**: Adjust speed even during spinning
+- **Visual Feedback**: Current speed level displayed next to slider
+- **Responsive Design**: Touch-friendly controls on mobile devices
 
 ### Confetti Animation
 - **Winning Celebration**: Large confetti animation when 3 logos match
@@ -113,6 +121,7 @@ Edit the `<style>` section in `index.html`:
 ### Game Logic Changes
 Edit `slot-game.js`:
 - Spin speed adjustment: `currentSpeeds` and `maxSpeeds` arrays
+- Speed control: `updateReelSpeed()` and `getSpeedDisplayText()` methods
 - Confetti amount: Modify confetti creation in `checkWin()` method
 - Number of logo sets: `initializeLogoSets()` method
 - Win conditions: `checkWin()` method
