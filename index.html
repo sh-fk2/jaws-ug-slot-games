@@ -332,6 +332,24 @@
             cursor: not-allowed;
         }
 
+        /* Responsive adjustments for controls and buttons */
+        @media (max-width: 600px) {
+            .controls {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                margin: 15px 0;
+            }
+            
+            button {
+                width: 200px;
+                padding: 12px 20px;
+                font-size: 16px;
+                margin: 0;
+            }
+        }
+
         #message {
             font-size: 24px;
             font-weight: bold;
