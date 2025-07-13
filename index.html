@@ -315,6 +315,57 @@
             margin: 20px 0;
         }
 
+        .speed-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .speed-control label {
+            font-weight: bold;
+            min-width: 80px;
+        }
+
+        #speed-slider {
+            width: 150px;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        #speed-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ff9900;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        #speed-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ff9900;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        #speed-display {
+            min-width: 60px;
+            font-weight: bold;
+            color: #ff9900;
+        }
+
         button {
             background: #ff9900;
             color: white;
@@ -337,6 +388,21 @@
 
         /* Responsive adjustments for controls and buttons */
         @media (max-width: 600px) {
+            .speed-control {
+                flex-direction: column;
+                gap: 8px;
+                margin: 10px 0;
+            }
+            
+            .speed-control label {
+                min-width: auto;
+                font-size: 14px;
+            }
+            
+            #speed-slider {
+                width: 200px;
+            }
+            
             .controls {
                 display: flex;
                 flex-direction: column;
@@ -504,6 +570,12 @@
                 </div>
             </div>
             <div class="center-highlight"></div>
+        </div>
+
+        <div class="speed-control">
+            <label for="speed-slider">Reel Speed:</label>
+            <input type="range" id="speed-slider" min="1" max="5" value="3" step="1">
+            <span id="speed-display">Normal</span>
         </div>
 
         <div class="controls">

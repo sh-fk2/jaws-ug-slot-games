@@ -42,6 +42,32 @@ class SlotGame {
         }
     }
 
+    updateReelSpeed(speedMultiplier) {
+        // Base speeds for different multipliers
+        const baseMaxSpeeds = [15, 18, 20]; // Base maximum speeds for each reel
+        
+        // Update max speeds based on multiplier
+        this.maxSpeeds = baseMaxSpeeds.map(speed => speed * speedMultiplier);
+        
+        // If currently spinning, update current speeds proportionally
+        for (let i = 0; i < 3; i++) {
+            if (this.spinning[i]) {
+                this.currentSpeeds[i] = Math.min(this.currentSpeeds[i] * speedMultiplier, this.maxSpeeds[i]);
+            }
+        }
+    }
+
+    getSpeedDisplayText(speedValue) {
+        const speedTexts = {
+            1: "Very Slow",
+            2: "Slow", 
+            3: "Normal",
+            4: "Fast",
+            5: "Very Fast"
+        };
+        return speedTexts[speedValue] || "Normal";
+    }
+
     initializeLogoSets() {
         // Define available logo sets (base names without -1, -2, -3 suffixes)
         this.logoSets = [
@@ -477,6 +503,22 @@ document.addEventListener('keydown', (event) => {
 // Initialize game when page loads
 document.addEventListener('DOMContentLoaded', () => {
     game = new SlotGame();
+    
+    // Initialize speed control
+    const speedSlider = document.getElementById('speed-slider');
+    const speedDisplay = document.getElementById('speed-display');
+    
+    // Set initial display
+    speedDisplay.textContent = game.getSpeedDisplayText(parseInt(speedSlider.value));
+    
+    // Handle speed slider changes
+    speedSlider.addEventListener('input', (event) => {
+        const speedValue = parseInt(event.target.value);
+        const speedMultiplier = speedValue * 0.4; // Convert 1-5 to 0.4-2.0 multiplier
+        
+        game.updateReelSpeed(speedMultiplier);
+        speedDisplay.textContent = game.getSpeedDisplayText(speedValue);
+    });
 });
 
 // Handle window resize for responsive symbol width
