@@ -85,6 +85,28 @@
             background: #fff;
         }
 
+        /* Responsive adjustments for slot-row to match center-highlight */
+        @media (max-width: 1200px) {
+            .slot-row {
+                width: 750px;
+                height: 83px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .slot-row {
+                width: 600px;
+                height: 67px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .slot-row {
+                width: 450px;
+                height: 50px;
+            }
+        }
+
         .slot-row:first-child {
             border-radius: 15px 15px 0 0;
             overflow: hidden;
@@ -159,6 +181,43 @@
             display: block;
         }
 
+        /* Responsive adjustments for slot symbols and images to match center-highlight */
+        @media (max-width: 1200px) {
+            .slot-symbol {
+                width: 250px;
+                height: 83px;
+            }
+            
+            .slot-image {
+                width: 250px;
+                height: 83px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .slot-symbol {
+                width: 200px;
+                height: 67px;
+            }
+            
+            .slot-image {
+                width: 200px;
+                height: 67px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .slot-symbol {
+                width: 150px;
+                height: 50px;
+            }
+            
+            .slot-image {
+                width: 150px;
+                height: 50px;
+            }
+        }
+
         /* Apply border-radius to images in first and last rows */
         .slot-row:first-child .slot-image {
             border-radius: 15px 15px 0 0;
@@ -229,7 +288,6 @@
         /* Responsive adjustments for smaller screens */
         @media (max-width: 1200px) {
             .center-highlight {
-                left: calc(50% + 5px);
                 width: 250px;
                 height: 250px;
             }
@@ -237,7 +295,6 @@
 
         @media (max-width: 900px) {
             .center-highlight {
-                left: calc(50% + 10px);
                 width: 200px;
                 height: 200px;
             }
@@ -245,7 +302,6 @@
 
         @media (max-width: 600px) {
             .center-highlight {
-                left: calc(50% + 15px);
                 width: 150px;
                 height: 150px;
                 border-width: 2px;

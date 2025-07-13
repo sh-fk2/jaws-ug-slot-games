@@ -3,7 +3,7 @@ class SlotGame {
     constructor() {
         this.numRows = 3;
         this.numSymbolsPerReel = 15; // Number of symbols in each reel strip
-        this.symbolWidth = 300; // Width of each symbol in pixels (back to 300px)
+        this.symbolWidth = this.getResponsiveSymbolWidth(); // Dynamic width based on screen size
         this.visibleFrames = 3; // Number of visible frames (left, center, right)
         
         // Game state
@@ -27,6 +27,19 @@ class SlotGame {
         this.loadSelectedSets();
         this.initializeReels();
         this.initializeMatchingPositions();
+    }
+
+    getResponsiveSymbolWidth() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth <= 600) {
+            return 150;
+        } else if (screenWidth <= 900) {
+            return 200;
+        } else if (screenWidth <= 1200) {
+            return 250;
+        } else {
+            return 300;
+        }
     }
 
     initializeLogoSets() {
@@ -464,4 +477,16 @@ document.addEventListener('keydown', (event) => {
 // Initialize game when page loads
 document.addEventListener('DOMContentLoaded', () => {
     game = new SlotGame();
+});
+
+// Handle window resize for responsive symbol width
+window.addEventListener('resize', () => {
+    if (game) {
+        const newSymbolWidth = game.getResponsiveSymbolWidth();
+        if (newSymbolWidth !== game.symbolWidth) {
+            game.symbolWidth = newSymbolWidth;
+            // Update reel positions to match new symbol width
+            game.updateReelDisplay();
+        }
+    }
 });
