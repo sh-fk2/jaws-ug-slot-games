@@ -36,6 +36,23 @@
             font-weight: bold;
         }
 
+        /* Mobile break for title */
+        .mobile-break {
+            display: none;
+        }
+        
+        /* Responsive title adjustments */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+                line-height: 1.2;
+            }
+            
+            .mobile-break {
+                display: inline;
+            }
+        }
+
         .game-container {
             background: white;
             border-radius: 10px;
@@ -389,7 +406,7 @@
 <body>
     <div class="header">
         <img src="JAWS-UG.png" alt="JAWS-UG Logo" class="logo">
-        <h1>JAWS-UG Slot Games</h1>
+        <h1>JAWS-UG<br class="mobile-break"> Slot Games</h1>
     </div>
 
     <div class="game-container">
