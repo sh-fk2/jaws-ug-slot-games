@@ -31,13 +31,13 @@ cp -r /path/to/jaws-ug-slot-games-web/* .
 ```bash
 git add .
 git commit -m "Initial commit: JAWS-UG Slot Games Web Version"
-git push origin main
+git push origin master
 ```
 
 In your GitHub repository settings:
 1. Settings → Pages
 2. Source: Deploy from a branch
-3. Branch: main / (root)
+3. Branch: master / (root)
 4. Save
 
 ### 4. Access
@@ -53,7 +53,6 @@ Your game will be available at: `https://yourusername.github.io/jaws-ug-slot-gam
 ### Keyboard Controls
 - **Space**: Start spin / Stop reel / Spin again
 - **R Key**: Restart game with new logo sets
-- **ESC Key**: Exit game confirmation
 
 ## 🎊 Special Features
 
@@ -72,14 +71,15 @@ Your game will be available at: `https://yourusername.github.io/jaws-ug-slot-gam
 ## 🏗️ File Structure
 
 ```
-jaws-ug-slot-games-web/
+jaws-ug-slot-games/
 ├── index.html          # Main game page
 ├── slot-game.js        # Game logic with confetti animation
 ├── README.md          # This file
 ├── JAWS-UG.png        # Main JAWS-UG logo
-├── package.json       # Project configuration
-├── deploy.sh          # Deployment helper script
 ├── _config.yml        # GitHub Pages configuration
+├── .github/
+│   └── workflows/
+│       └── pages.yml   # GitHub Actions deployment workflow
 └── logos/             # Logo images directory (200+ files)
     ├── [logo-name]-1.png  # Top segment
     ├── [logo-name]-2.png  # Middle segment
@@ -91,8 +91,6 @@ jaws-ug-slot-games-web/
 ### Local Testing
 ```bash
 # Start local server
-npm start
-# or
 python3 -m http.server 8000
 ```
 
@@ -114,10 +112,11 @@ Edit the `<style>` section in `index.html`:
 
 ### Game Logic Changes
 Edit `slot-game.js`:
-- Spin speed adjustment: `maxSpeeds` property
-- Confetti amount: Modify `createFallingConfetti()` function
-- Number of logo sets: `loadSelectedSets()` method
+- Spin speed adjustment: `currentSpeeds` and `maxSpeeds` arrays
+- Confetti amount: Modify confetti creation in `checkWin()` method
+- Number of logo sets: `initializeLogoSets()` method
 - Win conditions: `checkWin()` method
+- Symbol width: `getResponsiveSymbolWidth()` method
 
 ## 🔧 Technical Specifications
 
